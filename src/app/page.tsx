@@ -1,4 +1,7 @@
 import { Button } from "@/shared/ui/button";
+import {PrismaClient} from "@prisma/client"
+
+const client = new PrismaClient();
 
 export default function Home() {
   return (
