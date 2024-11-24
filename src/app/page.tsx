@@ -1,12 +1,11 @@
-import { Button } from "@/shared/ui/button";
-import {PrismaClient} from "@prisma/client"
-
-const client = new PrismaClient();
+import { CreateCourseForm } from "@/features/CoursesList/pub/CreateCourseForm";
+import { CoursesList } from "@/features/CoursesList/pub/CoursesList";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button>Button</Button>
+    <main className="flex min-h-screen flex-col p-8">
+      <CreateCourseForm revalidatePagePath="/" className="w-[300px]" />
+      <CoursesList revalidatePagePath="/" />
     </main>
   );
 }
