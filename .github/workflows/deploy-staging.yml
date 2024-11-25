@@ -1,0 +1,50 @@
+name: deploy staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  # выполняем проверки перед деплоем
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # стягиваем репозиторий на машину
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3  # плагин устанавливает ноду на машину
+        with:
+          node-version: 20.x.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Eslint-check
+        run: npm run lint
+
+      - name: Type-check
+        run: npm run lint:types
+
+      - name: Run tests
+        run: npm run test
+
+
+  deploy:
+    needs: lint # указываем, что выполнение шага зависит от шага lint
+    runs-on: ubuntu-latest
+    concurrency: # чтобы не было несколько деплоев одновременно
+      group: staging
+      cancel-in-progress: true
+    steps:
+      - name: SSH Command
+        uses: D3rHase/ssh-command-action@v0.2.2 # плагин для подключения по ssh
+        with:
+          host: ${{ secrets.STAGING_SSH_HOST }}
+          user: ${{ secrets.STAGING_SSH_USERNAME }}
+          private_key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
+          host_fingerprint: ${{ secrets.STAGING_SSH_FINGERPRINT }}
+          command: source ~/.nvm/nvm.sh; echo 'Hello world'
