@@ -8,7 +8,7 @@ on:
 
 # задаем переменную (используем ее для playwright, в config настраивали ее использование)
 env:
-  TEST_ENV_BASE_URL: https://staging.microcourses-pro.ru
+  TEST_ENV_BASE_URL: https://stage.yourdevmap.ru/
 
 jobs:
   e2e:
