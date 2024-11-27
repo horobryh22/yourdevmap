@@ -5,6 +5,7 @@ on:
     workflows: ["deploy staging"]
     types:
       - completed
+    status: success
 
 # задаем переменную (используем ее для playwright, в config настраивали ее использование)
 env:
