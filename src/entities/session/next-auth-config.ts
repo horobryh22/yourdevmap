@@ -8,7 +8,7 @@ import { Provider } from "next-auth/providers/index";
 const { GITHUB_ID, GITHUB_SECRET } = privateConfig;
 
 export const nextAuthConfig: AuthOptions = {
-  adapter: PrismaAdapter(dbClient),
+  adapter: PrismaAdapter(dbClient) as AuthOptions["adapter"],
   providers: [
     GITHUB_ID &&
       GITHUB_SECRET &&
