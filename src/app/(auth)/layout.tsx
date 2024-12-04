@@ -8,7 +8,7 @@ export default async function Layout({
   return (
     <>
       <AppHeader variant={"auth"} />
-      {children}
+      <div className="container mx-auto flex justify-center">{children}</div>
     </>
   );
 }

@@ -18,6 +18,12 @@ const {
 
 export const nextAuthConfig: AuthOptions = {
   adapter: PrismaAdapter(dbClient) as AuthOptions["adapter"],
+  // заменяем страницы предоставляемые next-auth своими
+  pages: {
+    signIn: "/auth/sign-in",
+    newUser: "/auth/new-user",
+    verifyRequest: "/auth/verify-request",
+  },
   providers: [
     [GITHUB_ID, GITHUB_SECRET].every(Boolean) &&
       GithubProvider({
