@@ -26,3 +26,10 @@ export type SessionEntity = {
   };
   expires: string;
 };
+
+// проекции
+export type Profile = {
+  email: string;
+  name?: string | null;
+  image?: string | null;
+};
