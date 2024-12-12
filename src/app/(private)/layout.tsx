@@ -9,7 +9,9 @@ export default async function Layout({
   return (
     <>
       <AppHeader variant={"private"} />
-      <AuthorizedGuard>{children}</AuthorizedGuard>
+      <AuthorizedGuard>
+        <div className="container mx-auto flex justify-center">{children}</div>
+      </AuthorizedGuard>
     </>
   );
 }
