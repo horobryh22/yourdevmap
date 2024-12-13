@@ -16,7 +16,9 @@ import {
 import { Input } from "@/shared/ui/input";
 import { Spinner } from "@/shared/ui/spinner";
 import { AvatarField } from "./avatar-field";
-import type { Profile } from "@/entities/user/profile";
+import { UserId } from "@/entities/user/_domain/types";
+import { Profile } from "@/entities/user/profile";
+import { useUpdateProfile } from "@/features/update-profile/_vm/use-update-profile";
 
 const profileFormSchema = z.object({
   name: z
@@ -42,11 +44,13 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 type ProfileFormProps = {
   profile: Profile;
+  userId: UserId;
   onSuccess?: () => void;
   submitText?: string;
 };
 
 export function ProfileForm({
+  userId,
   profile,
   onSuccess,
   submitText = "Сохранить",
@@ -56,9 +60,21 @@ export function ProfileForm({
     defaultValues: getDefaultValues(profile),
   });
 
+  const updateProfile = useUpdateProfile();
+
+  const onSubmitForm = form.handleSubmit(async (data) => {
+    const { profile } = await updateProfile.update({
+      userId: userId,
+      data,
+    });
+
+    form.reset(getDefaultValues(profile));
+    onSuccess?.();
+  });
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(() => {})} className="space-y-8">
+      <form onSubmit={onSubmitForm} className="space-y-8">
         <FormField
           control={form.control}
           name="email"
@@ -97,15 +113,15 @@ export function ProfileForm({
                 <AvatarField
                   value={field.value}
                   onChange={field.onChange}
-                  profile={{ name: "IV" }}
+                  profile={profile}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={false}>
-          {false && (
+        <Button type="submit" disabled={updateProfile.isPending}>
+          {updateProfile.isPending && (
             <Spinner
               className="mr-2 h-4 w-4 animate-spin"
               data-testid="Обновление профиля"

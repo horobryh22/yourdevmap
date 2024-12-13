@@ -1,7 +1,7 @@
 import type { SessionEntity, UserEntity, UserId } from "../_domain/types";
-import { userRepository } from "../_repositories/user.repository";
-import { createUserAbility } from "@/entities/user/_domain/user-ability";
-import { AuthorizationError } from "@/shared/lib/errors";
+import { userRepository } from "../_repositories/user";
+import { createUserAbility } from "@/entities/user/_domain/ability";
+import { AccessError } from "@/shared/lib/errors";
 
 type GetUser = {
   id: UserId;
@@ -14,7 +14,7 @@ export class GetUserUseCase {
 
     // проверяем доступы
     if (!userAbility.canGetUser(id)) {
-      throw new AuthorizationError();
+      throw new AccessError();
     }
 
     return await userRepository.getUserById(id);
