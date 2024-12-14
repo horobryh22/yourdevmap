@@ -5,6 +5,7 @@ import { ProfileForm } from "./_ui/profile-form";
 import { getProfileQuery } from "@/entities/user/profile";
 import { Spinner } from "@/shared/ui/spinner";
 import { UserId } from "@/entities/user/_domain/types";
+import { useRouter } from "next/navigation";
 
 export function UpdateProfileForm({
   userId,
@@ -16,14 +17,14 @@ export function UpdateProfileForm({
   const profileQuery = useQuery({
     ...getProfileQuery(userId),
   });
-  /*
-   const router = useRouter();
 
-   const handleSuccess = () => {
-     if (callbackUrl) {
-       router.push(callbackUrl);
-     }
-   };*/
+  const router = useRouter();
+
+  const handleSuccess = () => {
+    if (!callbackUrl) return;
+
+    router.push(callbackUrl);
+  };
 
   if (profileQuery.isPending) {
     return <Spinner data-testid="Загрузка профиля" />;
@@ -37,7 +38,7 @@ export function UpdateProfileForm({
     <ProfileForm
       userId={userId}
       profile={profileQuery.data?.profile}
-      onSuccess={() => {}}
+      onSuccess={handleSuccess}
       submitText={callbackUrl ? "Продолжить" : "Сохранить"}
     />
   );
