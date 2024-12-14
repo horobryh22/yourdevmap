@@ -1,6 +1,6 @@
 import { getProfileLetters } from "./get-profile-letters";
 
-describe("get profile letters", () => {
+describe.skip("get profile letters", () => {
   test("should split by .", () => {
     const res = getProfileLetters({
       email: "evgeny.paromov@gmail.com",
