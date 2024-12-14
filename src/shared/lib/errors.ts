@@ -9,3 +9,9 @@ export class AuthorizationError extends Error {
     super(message);
   }
 }
+
+export class BadRequestError extends Error {
+  constructor(message = "BadRequestError") {
+    super(message);
+  }
+}
