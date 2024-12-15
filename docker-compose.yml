@@ -35,7 +35,7 @@ services:
       - minio
     entrypoint:  >
       /bin/sh -c "
-      /usr/bin/mc alias set myminio http://minio:9000 minio minio123;
+      until (/usr/bin/mc alias set myminio http://minio:9000 minio minio123) do echo '...waiting...' && sleep 1; done;
       /usr/bin/mc mb myminio/images;
       /usr/bin/mc anonymous set public myminio/images;
       exit 0;
