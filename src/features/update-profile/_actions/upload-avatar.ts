@@ -18,9 +18,7 @@ export const uploadAvatarAction = async (formData: FormData) => {
     throw new BadRequestError();
   }
 
-  const storedFile = await fileStorage.uploadImage(file, [
-    { Key: "image-type", Value: "avatar" },
-  ]);
+  const storedFile = await fileStorage.uploadImage(file, "avatar");
 
   return resultSchema.parse({
     avatar: storedFile,

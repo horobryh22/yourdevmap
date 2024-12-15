@@ -23,26 +23,19 @@ class FileStorage {
     },
   });
 
-  async uploadImage(file: File, tags: Tag[]) {
-    return this.upload(file, privateConfig.S3_IMAGES_BUCKET, { tags });
+  async uploadImage(file: File, tag: string) {
+    return this.upload(file, privateConfig.S3_IMAGES_BUCKET, tag);
   }
 
-  async upload(
-    file: File,
-    bucket: string,
-    options?: {
-      tags: Tag[];
-    },
-  ): Promise<StoredFile> {
+  async upload(file: File, bucket: string, tag: string): Promise<StoredFile> {
     const res = await new Upload({
       client: this.s3Client,
       params: {
         ACL: "public-read",
         Bucket: bucket,
-        Key: `${Date.now().toString()}-${file.name}`,
+        Key: `${tag}-${Date.now().toString()}-${file.name}`,
         Body: file,
       },
-      tags: options?.tags ?? [], // optional tags
       queueSize: 4, // optional concurrency configuration
       partSize: 1024 * 1024 * 5, // optional size of each part, in bytes, at least 5MB
       leavePartsOnError: false, // optional manually handle dropped parts

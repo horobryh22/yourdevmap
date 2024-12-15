@@ -38,3 +38,7 @@ export function AvatarField({
     </Button>
   );
 }
+
+// TODO
+// чет бакет images не создается скриптом, приходится его вручную создавать, после очистки volumes
+// тесты jest не запускаются

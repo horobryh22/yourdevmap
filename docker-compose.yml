@@ -29,7 +29,7 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-  create_images_buckets: # тут чет бакет не создается скриптом, приходится его вручную создавать, после очистки volumes
+  create_images_buckets:
     image: minio/mc
     depends_on:
       - minio
