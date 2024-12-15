@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { ADMIN, USER, USER_2 } from "../tests/stabs/users";
+
 const prisma = new PrismaClient();
+
+/* наполняем БД тестовыми данными для e2e */
 
 async function main() {
   const adminUser = await prisma.user.create({

@@ -1,5 +1,7 @@
 import { $Enums } from "@prisma/client";
 
+/* тестовые пользователи для e2e тестов */
+
 export const ADMIN = {
   id: "admin",
   email: "admin@gmail.com",
