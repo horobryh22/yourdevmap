@@ -6,16 +6,18 @@ import { getProfileLetters } from "../_vm/get-profile-letters";
 export const ProfileAvatar = ({
   profile,
   className,
+  dataTestId = "profile_header_avatar",
 }: {
   profile?: Profile;
   className?: string;
+  dataTestId?: string;
 }) => {
   if (!profile) {
     return null;
   }
 
   return (
-    <Avatar className={cn(className)}>
+    <Avatar data-testid={dataTestId} className={cn(className)}>
       <AvatarImage src={profile.image ?? ""} className={"object-cover"} />
       <AvatarFallback>{getProfileLetters(profile)}</AvatarFallback>
     </Avatar>

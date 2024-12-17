@@ -16,6 +16,7 @@ export function UpdateProfileForm({
 }) {
   const profileQuery = useQuery({
     ...getProfileQuery(userId),
+    retry: 0,
   });
 
   const router = useRouter();
@@ -27,11 +28,15 @@ export function UpdateProfileForm({
   };
 
   if (profileQuery.isPending) {
-    return <Spinner data-testid="Загрузка профиля" />;
+    return <Spinner data-testid="user_profile_loader" />;
   }
 
   if (!profileQuery.data?.profile) {
-    return <div>Не удалось загрузить профиль, возможно у вас нет прав</div>;
+    return (
+      <div data-testid={"profile_access_denied"}>
+        Не удалось загрузить профиль, возможно у вас нет прав
+      </div>
+    );
   }
 
   return (

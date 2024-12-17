@@ -33,7 +33,7 @@ export function Profile() {
   const user = session.data?.user;
 
   return (
-    <DropdownMenu>
+    <DropdownMenu data-testid={"avatar_menu"}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
@@ -45,14 +45,16 @@ export function Profile() {
       <DropdownMenuContent className="w-56 mr-2 ">
         <DropdownMenuLabel>
           <p>Мой профиль</p>
-          <p className="text-xs text-muted-foreground overflow-hidden text-ellipsis">
+          <p
+            className="text-xs text-muted-foreground overflow-hidden text-ellipsis"
+            data-testid={"profile_display_name"}
+          >
             {user ? getProfileDisplayName(user) : undefined}
           </p>
         </DropdownMenuLabel>
-        <DropdownMenuGroup></DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild data-testid={"go_to_profile_link"}>
             <Link href={`/profile/${user?.id}`}>
               <User className="mr-2 h-4 w-4" />
               <span>Профиль</span>

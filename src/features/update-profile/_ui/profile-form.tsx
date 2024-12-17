@@ -96,7 +96,11 @@ export function ProfileForm({
             <FormItem>
               <FormLabel>Имя пользователя</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input
+                  data-testid={"profile_form_name"}
+                  placeholder=""
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -119,11 +123,15 @@ export function ProfileForm({
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={updateProfile.isPending}>
+        <Button
+          type="submit"
+          disabled={updateProfile.isPending}
+          data-testid={"form_submit_button"}
+        >
           {updateProfile.isPending && (
             <Spinner
               className="mr-2 h-4 w-4 animate-spin"
-              data-testid="Обновление профиля"
+              data-testid="profile_update_spinner"
             />
           )}
           {submitText}

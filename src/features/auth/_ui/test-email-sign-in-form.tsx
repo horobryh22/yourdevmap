@@ -62,7 +62,7 @@ export function TestEmailSignInForm({ testToken }: { testToken: string }) {
             Войти через Email
           </Button>
           {emailSignIn.isSuccess && (
-            <Link
+            <a
               className="text-sm text-muted-foreground text-underline"
               href={generateTestLink({
                 callbackUrl: emailSignIn.callbackUrl ?? "",
@@ -71,7 +71,7 @@ export function TestEmailSignInForm({ testToken }: { testToken: string }) {
               })}
             >
               Упрощённый тестовый вход
-            </Link>
+            </a>
           )}
         </div>
       </form>

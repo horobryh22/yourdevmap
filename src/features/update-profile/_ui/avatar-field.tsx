@@ -34,6 +34,7 @@ export function AvatarField({
       <ProfileAvatar
         className="w-full h-full"
         profile={{ ...profile, image: value }}
+        dataTestId={"profile_form_avatar"}
       />
     </Button>
   );
