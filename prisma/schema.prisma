@@ -25,6 +25,7 @@ model User {
   name          String?
   email         String          @unique
   emailVerified DateTime?
+  role          ROLE            @default(USER)
   image         String?
   accounts      Account[]
   sessions      Session[]
@@ -70,4 +71,9 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+enum ROLE {
+  ADMIN
+  USER
 }

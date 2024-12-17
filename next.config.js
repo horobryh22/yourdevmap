@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  rewrites: () => [
+    // проксируем запросы для локальной разработки для images
+    // которые хранятся в minio
+    {
+      source: "/storage/:path*",
+      destination: `${process.env.S3_ENDPOINT}/:path*`,
+    },
+  ],
+};
 
 module.exports = nextConfig;
 
